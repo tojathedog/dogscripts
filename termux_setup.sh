@@ -88,9 +88,9 @@ nl;
 echo "setup step ${setup_step} - upgrade packages"; nl;
 echo -n "updating packages with pkg upgrade...";
 if [[ "${verbose}" == 'off' ]] ; then
-	echo pkg upgrade;
+	pkg upgrade 1> /dev/null;
 elif [[ "${verbose}" == 'on' ]] ; then
-	echo pkg upgrade with stuff on the output;
+	pkg upgrade;
 else
 	err "can't update packages";
 fi 
@@ -101,9 +101,9 @@ if [[ "${termux_setup_only}" == 'off' ]] ; then
 	if [[ "${packages_list[@]:+${packages_list[@]}}" ]]; then
 		echo -n "installing the following packages: "${packages_list[@]}"... "
 		if [[ "${verbose}" == 'off' ]] ; then
-			echo pkg add "${packages_list[@]}";
+			pkg add "${packages_list[@]}" 1> /dev/null;
 		elif [[ "${verbose}" == 'on' ]] ; then
-			echo pkg add "${packages_list[@]}" with stuff on the output;
+			pkg add "${packages_list[@]}";
 		else
 			err "can't install the packages you wanted";
 		fi
