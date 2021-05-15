@@ -97,21 +97,21 @@ fi
 echo "DONE!"; (( setup_step += 1 )); nl;
 
 if [[ "${termux_setup_only}" == 'off' ]] ; then
-echo "setup step ${setup_step} - install packages"; nl;
-if [[ "${packages_list[@]:+${packages_list[@]}}" ]]; then
-	echo -n "installing the following packages: "${packages_list[@]}"... "
-	if [[ "${verbose}" == 'off' ]] ; then
-		echo pkg add "${packages_list[@]}";
-	elif [[ "${verbose}" == 'on' ]] ; then
-		echo pkg add "${packages_list[@]}" with stuff on the output;
+	echo "setup step ${setup_step} - install packages"; nl;
+	if [[ "${packages_list[@]:+${packages_list[@]}}" ]]; then
+		echo -n "installing the following packages: "${packages_list[@]}"... "
+		if [[ "${verbose}" == 'off' ]] ; then
+			echo pkg add "${packages_list[@]}";
+		elif [[ "${verbose}" == 'on' ]] ; then
+			echo pkg add "${packages_list[@]}" with stuff on the output;
+		else
+			err "can't install the packages you wanted";
+		fi
 	else
-		err "can't install the packages you wanted";
-	fi
-else
-	echo "no packages in packages_list setting, skipping this part!"; nl;
+		echo "no packages in packages_list setting, skipping this part!"; nl;
 
-fi
-echo "DONE!"; (( setup_step += 1 )); nl;
+	fi
+	echo "DONE!"; (( setup_step += 1 )); nl;
 fi
 
 echo "setup step ${setup_step} - setup local storage"; nl;
