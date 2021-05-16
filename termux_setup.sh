@@ -39,7 +39,7 @@ nl() { printf "\n"; }
 
 # err - func for printing out broken parts
 err() { 
-	echo "$1 $*" >&2
+	echo "$*" >&2
 	exit 1
 }
 
@@ -76,6 +76,7 @@ readonly packages_list
 readonly verbose
 readonly termux_setup_only
 #readonly startup_dir
+declare -a silent_errors
 
 # setup start! ### 
 nl;
@@ -88,11 +89,9 @@ nl;
 echo "setup step ${setup_step} - upgrade packages"; nl;
 echo -n "updating packages with pkg upgrade...";
 if [[ "${verbose}" == 'off' ]] ; then
-	pkg upgrade 1> /dev/null;
+	pkg upgrade 1> /dev/null || err "can't update packages";
 elif [[ "${verbose}" == 'on' ]] ; then
-	pkg upgrade;
-else
-	err "can't update packages";
+	pkg upgrade || err "can't update packages";
 fi 
 echo "DONE!"; (( setup_step += 1 )); nl;
 
@@ -101,11 +100,9 @@ if [[ "${termux_setup_only}" == 'off' ]] ; then
 	if [[ "${packages_list[@]:+${packages_list[@]}}" ]]; then
 		echo -n "installing the following packages: "${packages_list[@]}"... "
 		if [[ "${verbose}" == 'off' ]] ; then
-			pkg add "${packages_list[@]}" 1> /dev/null;
+			pkg add "${packages_list[@]}" 1> /dev/null || err "can't install the packages you wanted";
 		elif [[ "${verbose}" == 'on' ]] ; then
-			pkg add "${packages_list[@]}";
-		else
-			err "can't install the packages you wanted";
+			pkg add "${packages_list[@]}" || err "can't install the packages you wanted";
 		fi
 	else
 		echo "no packages in packages_list setting, skipping this part!"; nl;
