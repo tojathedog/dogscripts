@@ -113,6 +113,6 @@ fi
 
 echo "setup step ${setup_step} - setup local storage"; nl;
 echo -n "running termux-storage-setup..."
-echo termux-setup-storage && echo "DONE!" || err "can't set up termux-storage-setup"; nl;
+termux-setup-storage && echo "DONE!" || err "can't set up termux-storage-setup"; nl;
 
 echo "termux_setup.sh complete!"; nl;
