@@ -1,4 +1,4 @@
-# dogscripts
+# dogscripts 🐶🛠︎📜
 repo of misc borks and scripts
 
 |script|what it is?|what it do?|lang|
