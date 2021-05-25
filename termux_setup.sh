@@ -21,6 +21,7 @@ vim
 wget
 openssh
 termux-tools
+ffmpeg
 )
 
 # option of where to start termux (i like downloads folder, you can change this)
